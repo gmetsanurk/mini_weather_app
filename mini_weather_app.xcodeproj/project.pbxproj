@@ -6,30 +6,21 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		6617CF632D82A60500E5E3C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6617CF5E2D82A60500E5E3C9 /* Assets.xcassets */; };
+		6617CF652D82A60500E5E3C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6617CF5D2D82A60500E5E3C9 /* AppDelegate.swift */; };
+		6617CF662D82A60500E5E3C9 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6617CF5F2D82A60500E5E3C9 /* HomeScreen.swift */; };
+		6617CF672D82A60500E5E3C9 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6617CF612D82A60500E5E3C9 /* Model.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		6617CF2E2D81B03700E5E3C9 /* mini_weather_app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mini_weather_app.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6617CF5D2D82A60500E5E3C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6617CF5E2D82A60500E5E3C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6617CF5F2D82A60500E5E3C9 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
+		6617CF602D82A60500E5E3C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6617CF612D82A60500E5E3C9 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		6617CF402D81B03800E5E3C9 /* Exceptions for "mini_weather_app" folder in "mini_weather_app" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 6617CF2D2D81B03700E5E3C9 /* mini_weather_app */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		6617CF302D81B03700E5E3C9 /* mini_weather_app */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				6617CF402D81B03800E5E3C9 /* Exceptions for "mini_weather_app" folder in "mini_weather_app" target */,
-			);
-			path = mini_weather_app;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		6617CF2B2D81B03700E5E3C9 /* Frameworks */ = {
@@ -45,7 +36,7 @@
 		6617CF252D81B03700E5E3C9 = {
 			isa = PBXGroup;
 			children = (
-				6617CF302D81B03700E5E3C9 /* mini_weather_app */,
+				6617CF622D82A60500E5E3C9 /* mini_weather_app */,
 				6617CF2F2D81B03700E5E3C9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -56,6 +47,26 @@
 				6617CF2E2D81B03700E5E3C9 /* mini_weather_app.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		6617CF5C2D82A60500E5E3C9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6617CF5E2D82A60500E5E3C9 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		6617CF622D82A60500E5E3C9 /* mini_weather_app */ = {
+			isa = PBXGroup;
+			children = (
+				6617CF5D2D82A60500E5E3C9 /* AppDelegate.swift */,
+				6617CF5F2D82A60500E5E3C9 /* HomeScreen.swift */,
+				6617CF612D82A60500E5E3C9 /* Model.swift */,
+				6617CF602D82A60500E5E3C9 /* Info.plist */,
+				6617CF5C2D82A60500E5E3C9 /* Resources */,
+			);
+			path = mini_weather_app;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -72,9 +83,6 @@
 			buildRules = (
 			);
 			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				6617CF302D81B03700E5E3C9 /* mini_weather_app */,
 			);
 			name = mini_weather_app;
 			packageProductDependencies = (
@@ -122,6 +130,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6617CF632D82A60500E5E3C9 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +141,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6617CF652D82A60500E5E3C9 /* AppDelegate.swift in Sources */,
+				6617CF662D82A60500E5E3C9 /* HomeScreen.swift in Sources */,
+				6617CF672D82A60500E5E3C9 /* Model.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
