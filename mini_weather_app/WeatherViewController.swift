@@ -16,6 +16,18 @@ class WeatherViewController: UIViewController {
     
     
     
+    private func refreshWeather() {
+        weatherViewModel.fetchWeather(for: "Moscow")
+    }
+    
+    private func updateUI(with weather: WeatherData) {
+        cityLabel.text = weather.name
+        tempLabel.text = "\(Int(weather.main.temp))°C"
+        
+        let weatherType = weather.weather.first?.description ?? "clear"
+        weatherIcon.image = UIImage(systemName: getWeatherIcon(for: weatherType))
+    }
+    
     private func getWeatherIcon(for description: String) -> String {
         if description.contains("rain") {
             return "cloud.rain.fill"
