@@ -9,14 +9,19 @@ enum NetworkError: Error {
 class WeatherNetworkManager {
     static let shared = WeatherNetworkManager()
     private let apiKey = "a2b4f69ada2c898ba84feba0043fc80a"
-    private let baseUrl = "api.openweathermap.org"
+    private let baseURL = "api.openweathermap.org"
     
     private init() {}
     
     func fetchWeather(for city: String, completion: @escaping (Result<WeatherData, Error>) -> Void) {
         
-        let urlString = "\(baseUrl)?q=\(city)&appid=\(apiKey)&units=metric&lanr=ru"
-        //request(urlString: urlString)
+        let urlString = "\(baseURL)?q=\(city)&appid=\(apiKey)&units=metric&lanr=ru"
+        request(urlString: urlString, completion: completion)
+    }
+    
+    func fetchWeatherByCoordinates(lat: Double, lon: Double, completion: @escaping (Result<WeatherData, Error>) -> Void) {
+        let urlString = "\(baseURL)?lat=\(lat)&lon=\(lon)&appid=\(apiKey)&units=metric&lang=ru"
+        request(urlString: urlString, completion: completion)
     }
     
     func request<T: Codable>(urlString: String, completion: @escaping (Result<T, Error>) -> Void) {
@@ -47,5 +52,7 @@ class WeatherNetworkManager {
                 completion(.failure(NetworkError.decodingFailed))
             }
         }
+        
+        task.resume()
     }
 }
