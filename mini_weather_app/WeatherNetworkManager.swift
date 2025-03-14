@@ -3,6 +3,7 @@ import Foundation
 enum NetworkError: Error {
     case invalidURL
     case noData
+    case decodingFailed
 }
 
 class WeatherNetworkManager {
@@ -37,7 +38,14 @@ class WeatherNetworkManager {
                 return
             }
             
-            
+            do {
+                let decodedData = try JSONDecoder().decode(T.self, from: data)
+                DispatchQueue.main.async {
+                    completion(.success(decodedData))
+                }
+            } catch {
+                completion(.failure(NetworkError.decodingFailed))
+            }
         }
     }
 }
