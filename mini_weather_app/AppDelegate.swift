@@ -14,7 +14,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func setupWindow() {
         window = UIWindow(frame: UIScreen.main.bounds)
-        let homeVC = HomeScreen()
+        let homeVC = WeatherViewController()
         window?.rootViewController = homeVC
         window?.makeKeyAndVisible()
     }

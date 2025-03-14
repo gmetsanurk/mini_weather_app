@@ -9,19 +9,21 @@
 /* Begin PBXBuildFile section */
 		6617CF632D82A60500E5E3C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6617CF5E2D82A60500E5E3C9 /* Assets.xcassets */; };
 		6617CF652D82A60500E5E3C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6617CF5D2D82A60500E5E3C9 /* AppDelegate.swift */; };
-		6617CF662D82A60500E5E3C9 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6617CF5F2D82A60500E5E3C9 /* HomeScreen.swift */; };
+		6617CF662D82A60500E5E3C9 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6617CF5F2D82A60500E5E3C9 /* WeatherViewController.swift */; };
 		6617CF672D82A60500E5E3C9 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6617CF612D82A60500E5E3C9 /* Model.swift */; };
 		6617CF692D831B7100E5E3C9 /* WeatherNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6617CF682D831B7100E5E3C9 /* WeatherNetworkManager.swift */; };
+		6617CF6D2D84070900E5E3C9 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6617CF6C2D84070200E5E3C9 /* WeatherViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6617CF2E2D81B03700E5E3C9 /* mini_weather_app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mini_weather_app.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6617CF5D2D82A60500E5E3C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6617CF5E2D82A60500E5E3C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		6617CF5F2D82A60500E5E3C9 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
+		6617CF5F2D82A60500E5E3C9 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		6617CF602D82A60500E5E3C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6617CF612D82A60500E5E3C9 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		6617CF682D831B7100E5E3C9 /* WeatherNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherNetworkManager.swift; sourceTree = "<group>"; };
+		6617CF6C2D84070200E5E3C9 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 			isa = PBXGroup;
 			children = (
 				6617CF5E2D82A60500E5E3C9 /* Assets.xcassets */,
+				6617CF602D82A60500E5E3C9 /* Info.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -63,10 +66,10 @@
 			isa = PBXGroup;
 			children = (
 				6617CF5D2D82A60500E5E3C9 /* AppDelegate.swift */,
-				6617CF5F2D82A60500E5E3C9 /* HomeScreen.swift */,
+				6617CF5F2D82A60500E5E3C9 /* WeatherViewController.swift */,
+				6617CF6C2D84070200E5E3C9 /* WeatherViewModel.swift */,
 				6617CF612D82A60500E5E3C9 /* Model.swift */,
 				6617CF682D831B7100E5E3C9 /* WeatherNetworkManager.swift */,
-				6617CF602D82A60500E5E3C9 /* Info.plist */,
 				6617CF5C2D82A60500E5E3C9 /* Resources */,
 			);
 			path = mini_weather_app;
@@ -144,8 +147,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6617CF6D2D84070900E5E3C9 /* WeatherViewModel.swift in Sources */,
 				6617CF652D82A60500E5E3C9 /* AppDelegate.swift in Sources */,
-				6617CF662D82A60500E5E3C9 /* HomeScreen.swift in Sources */,
+				6617CF662D82A60500E5E3C9 /* WeatherViewController.swift in Sources */,
 				6617CF672D82A60500E5E3C9 /* Model.swift in Sources */,
 				6617CF692D831B7100E5E3C9 /* WeatherNetworkManager.swift in Sources */,
 			);
@@ -163,7 +167,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MD7BX59K88;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = mini_weather_app/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/mini_weather_app/Resources/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -190,7 +194,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MD7BX59K88;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = mini_weather_app/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/mini_weather_app/Resources/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -260,6 +264,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/mini_weather_app/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -317,6 +322,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/mini_weather_app/Resources/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
