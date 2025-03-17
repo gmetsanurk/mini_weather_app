@@ -8,9 +8,13 @@ class WeatherViewModel {
         WeatherNetworkManager.shared.fetchWeather(for: city) { result in
             switch result {
             case .success(let data):
-                self.weatherData?(data)
+                DispatchQueue.main.async {
+                    self.weatherData?(data)
+                }
             case .failure(let error):
-                self.errorMessage?(error.localizedDescription)
+                DispatchQueue.main.async {
+                    self.errorMessage?(error.localizedDescription)
+                }
             }
         }
     }

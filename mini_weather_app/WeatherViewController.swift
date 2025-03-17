@@ -11,7 +11,7 @@ class WeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        //setupBindings()
+        setupBindings()
         weatherViewModel.fetchWeather(for: "Moscow")
     }
     
