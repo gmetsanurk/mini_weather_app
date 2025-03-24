@@ -9,14 +9,15 @@ enum NetworkError: Error {
 class WeatherNetworkManager {
     static let shared = WeatherNetworkManager()
     private let apiKey = "a2b4f69ada2c898ba84feba0043fc80a"
-    private let baseURL = "api.openweathermap.org"
+    private let baseURL = "https://api.openweathermap.org/data/2.5/weather"
     
     private init() {}
     
     func fetchWeather(for city: String, completion: @escaping (Result<WeatherData, Error>) -> Void) {
         
-        let urlString = "\(baseURL)?q=\(city)&appid=\(apiKey)&units=metric&lanr=ru"
+        let urlString = "\(baseURL)?q=\(city)&APPID=\(apiKey)"
         request(urlString: urlString, completion: completion)
+        print(urlString)
     }
     
     func fetchWeatherByCoordinates(lat: Double, lon: Double, completion: @escaping (Result<WeatherData, Error>) -> Void) {

@@ -7,12 +7,13 @@ class WeatherViewController: UIViewController {
     private let refreshButton = UIButton(type: .system)
     
     private let weatherViewModel = WeatherViewModel()
+    private var city = "Moscow,ru"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        //setupBindings()
-        weatherViewModel.fetchWeather(for: "Moscow")
+        setupBindings()
+        weatherViewModel.fetchWeather(for: city)
     }
     
     private func setupUI() {
@@ -70,7 +71,7 @@ class WeatherViewController: UIViewController {
     }
     
     private func refreshWeather() {
-        weatherViewModel.fetchWeather(for: "Moscow")
+        weatherViewModel.fetchWeather(for: city)
     }
     
     private func updateUI(with weather: WeatherData) {
