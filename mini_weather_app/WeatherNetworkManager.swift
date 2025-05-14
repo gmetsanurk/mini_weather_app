@@ -8,7 +8,7 @@ enum NetworkError: Error {
 
 class WeatherNetworkManager {
     static let shared = WeatherNetworkManager()
-    private let apiKey = "a2b4f69ada2c898ba84feba0043fc80a"
+    private let apiKey = ApiKey.openWeatherKey
     private let baseURL = "https://api.openweathermap.org/data/2.5/weather"
     
     private init() {}
