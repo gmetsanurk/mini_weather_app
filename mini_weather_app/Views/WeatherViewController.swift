@@ -153,3 +153,13 @@ extension WeatherViewController: UITableViewDataSource {
         }
     }
 }
+
+extension WeatherViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 1: return "Hourly Forecast"
+        case 2: return "Week Forecast"
+        default: return nil
+        }
+    }
+}
