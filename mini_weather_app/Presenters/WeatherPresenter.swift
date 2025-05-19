@@ -66,14 +66,21 @@ final class WeatherPresenter: WeatherPresenterProtocol {
     }
     
     private func fetchWeather() {
-        apiClient.fetchWeather(lat: currentLat, lon: currentLon, days: 7) { [weak self] result in
-            DispatchQueue.main.async {
-                self?.view?.hideLoading()
-                switch result {
-                case .success(let response):
-                    self?.view?.showWeather(response)
-                case .failure(let error):
-                    self?.view?.showError(error.localizedDescription)
+        Task {
+            do {
+                let response = try await apiClient.fetchWeather(
+                    lat: currentLat,
+                    lon: currentLon,
+                    days: 7
+                )
+                await MainActor.run {
+                    view?.hideLoading()
+                    view?.showWeather(response)
+                }
+            } catch {
+                await MainActor.run {
+                    view?.hideLoading()
+                    view?.showError(error.localizedDescription)
                 }
             }
         }

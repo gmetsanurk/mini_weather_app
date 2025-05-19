@@ -6,53 +6,90 @@
 //
 
 import Foundation
-import UIKit
+
+enum APIError: Error {
+    case invalidURL
+    case badStatus(code: Int)
+    case noData
+}
 
 protocol WeatherAPIClientProtocol {
-    func fetchWeather(lat: Double, lon: Double, days: Int, completion: @escaping (Result<WeatherResponse, Error>) -> Void)
-    func fetchIcon(path: String, completion: @escaping (UIImage?) -> Void)
+    func fetchWeather(
+        lat: Double,
+        lon: Double,
+        days: Int
+    ) async throws -> WeatherResponse
+
+    func fetchIconData(path: String) async throws -> Data
 }
 
 final class WeatherAPIClient: WeatherAPIClientProtocol {
-    private let apiKey = "fa8b3df74d4042b9aa7135114252304"
-    private let baseURL = "https://api.weatherapi.com/v1"
+    private let apiKey: String
+    private let baseURL: URL
+    private let session: URLSession
 
-    func fetchWeather(lat: Double, lon: Double, days: Int = 7, completion: @escaping (Result<WeatherResponse, Error>) -> Void) {
-        let urlString = "\(baseURL)/forecast.json?key=\(apiKey)&q=\(lat),\(lon)&days=\(days)"
-        guard let url = URL(string: urlString) else {
-            completion(.failure(NSError(domain: "InvalidURL", code: 0)))
-            return
-        }
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            if let error = error {
-                completion(.failure(error)); return
-            }
-            guard let data = data else {
-                completion(.failure(NSError(domain: "NoData", code: 0))); return
-            }
-            do {
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .formatted(DateFormatter.apiDateFormatter)
-                let response = try decoder.decode(WeatherResponse.self, from: data)
-                completion(.success(response))
-            } catch {
-                completion(.failure(error))
-            }
-        }.resume()
+    init(
+        apiKey: String = "fa8b3df74d4042b9aa7135114252304",
+        baseURL: URL = URL(string: "https://api.weatherapi.com/v1")!,
+        session: URLSession = .shared
+    ) {
+        self.apiKey = apiKey
+        self.baseURL = baseURL
+        self.session = session
     }
 
-    func fetchIcon(path: String, completion: @escaping (UIImage?) -> Void) {
+    private func makeForecastURL(
+        lat: Double,
+        lon: Double,
+        days: Int
+    ) -> URL? {
+        var comps = URLComponents(url: baseURL.appendingPathComponent("forecast.json"), resolvingAgainstBaseURL: false)
+        comps?.queryItems = [
+            .init(name: "key", value: apiKey),
+            .init(name: "q", value: "\(lat),\(lon)"),
+            .init(name: "days", value: "\(days)")
+        ]
+        return comps?.url
+    }
+
+    func fetchWeather(
+        lat: Double,
+        lon: Double,
+        days: Int = 7
+    ) async throws -> WeatherResponse {
+        guard let url = makeForecastURL(lat: lat, lon: lon, days: days) else {
+            throw APIError.invalidURL
+        }
+
+        let (data, response) = try await session.data(from: url)
+        guard let http = response as? HTTPURLResponse else {
+            throw APIError.badStatus(code: -1)
+        }
+        guard 200..<300 ~= http.statusCode else {
+            throw APIError.badStatus(code: http.statusCode)
+        }
+        guard !data.isEmpty else {
+            throw APIError.noData
+        }
+
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(DateFormatter.apiDateFormatter)
+        return try decoder.decode(WeatherResponse.self, from: data)
+    }
+
+    func fetchIconData(path: String) async throws -> Data {
         let urlString = "https:" + path
         guard let url = URL(string: urlString) else {
-            completion(nil); return
+            throw APIError.invalidURL
         }
-        URLSession.shared.dataTask(with: url) { data, _, _ in
-            guard let data = data, let image = UIImage(data: data) else {
-                completion(nil); return
-            }
-            DispatchQueue.main.async {
-                completion(image)
-            }
-        }.resume()
+
+        let (data, response) = try await session.data(from: url)
+        guard let http = response as? HTTPURLResponse, 200..<300 ~= http.statusCode else {
+            throw APIError.badStatus(code: (response as? HTTPURLResponse)?.statusCode ?? -1)
+        }
+        guard !data.isEmpty else {
+            throw APIError.noData
+        }
+        return data
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WeatherViewController: UIViewController, WeatherViewProtocol {
+final class WeatherViewController: UIViewController, WeatherViewProtocol {
     let presenter: WeatherPresenter
     let apiClient: WeatherAPIClientProtocol
     let activity = UIActivityIndicatorView(style: .large)
