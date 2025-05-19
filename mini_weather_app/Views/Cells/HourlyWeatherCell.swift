@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HourlyWeatherCell: UITableViewCell {
+final class HourlyWeatherCell: UITableViewCell {
     private let timeLabel = UILabel()
     private let tempLabel = UILabel()
     

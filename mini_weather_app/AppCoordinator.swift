@@ -8,7 +8,7 @@
 import UIKit
 import CoreLocation
 
-class AppCoordinator {
+final class AppCoordinator {
     private let window: UIWindow
     private let locationService: LocationServiceProtocol
     private let apiClient: WeatherAPIClientProtocol
@@ -49,14 +49,14 @@ class AppCoordinator {
     private func showLocationError() {
         guard let root = window.rootViewController else { return }
         let alert = UIAlertController(
-            title: "Ошибка местоположения",
-            message: "Не удалось определить локацию. Повторить попытку или ввести город вручную.",
+            title: "Location Error",
+            message: "Cannot get location",
             preferredStyle: .alert
         )
-        alert.addAction(UIAlertAction(title: "Повторить", style: .default) { [weak self] _ in
+        alert.addAction(UIAlertAction(title: "Retry", style: .default) { [weak self] _ in
             Task { await self?.start() }
         })
-        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         root.present(alert, animated: true)
     }
 }

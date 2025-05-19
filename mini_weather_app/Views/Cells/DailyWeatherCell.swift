@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DailyWeatherCell: UITableViewCell {
+final class DailyWeatherCell: UITableViewCell {
     private let dateLabel = UILabel()
     private let highLowLabel = UILabel()
     

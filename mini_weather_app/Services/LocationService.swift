@@ -12,7 +12,7 @@ protocol LocationServiceProtocol {
     func requestLocation() async throws -> CLLocationCoordinate2D
 }
 
-class LocationService: NSObject, CLLocationManagerDelegate, LocationServiceProtocol {
+final class LocationService: NSObject, CLLocationManagerDelegate, LocationServiceProtocol {
     private let manager: CLLocationManager
     private let moscowCoordinate = CLLocationCoordinate2D(
         latitude:  55.7558,

@@ -13,7 +13,7 @@ protocol WeatherAPIClientProtocol {
     func fetchIcon(path: String, completion: @escaping (UIImage?) -> Void)
 }
 
-class WeatherAPIClient: WeatherAPIClientProtocol {
+final class WeatherAPIClient: WeatherAPIClientProtocol {
     private let apiKey = "fa8b3df74d4042b9aa7135114252304"
     private let baseURL = "https://api.weatherapi.com/v1"
 

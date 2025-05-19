@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CurrentWeatherCell: UITableViewCell {
+final class CurrentWeatherCell: UITableViewCell {
     private let iconImageView = UIImageView()
     private let locationLabel = UILabel()
     private let tempLabel = UILabel()

@@ -25,7 +25,7 @@ protocol WeatherPresenterProtocol {
     func retry()
 }
 
-class WeatherPresenter: WeatherPresenterProtocol {
+final class WeatherPresenter: WeatherPresenterProtocol {
     weak var view: WeatherViewProtocol?
     private let apiClient: WeatherAPIClientProtocol
     private let locationService: LocationServiceProtocol

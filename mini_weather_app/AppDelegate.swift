@@ -9,7 +9,7 @@ import UIKit
 import CoreLocation
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     private lazy var coordinator: AppCoordinator = {
         let win = UIWindow(frame: UIScreen.main.bounds)
