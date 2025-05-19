@@ -1,5 +1,5 @@
 //
-//  Untitled.swift
+//  Models.swift
 //  mini_weather_app
 //
 //  Created by Georgy on 2025-05-16.

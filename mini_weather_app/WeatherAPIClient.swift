@@ -1,9 +1,10 @@
 //
-//  Untitled.swift
+//  WeatherAPIClient.swift
 //  mini_weather_app
 //
 //  Created by Georgy on 2025-05-16.
 //
+
 import Foundation
 
 protocol WeatherAPIClientProtocol {
