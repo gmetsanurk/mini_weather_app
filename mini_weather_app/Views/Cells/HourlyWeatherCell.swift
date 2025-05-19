@@ -34,7 +34,16 @@ class HourlyWeatherCell: UITableViewCell {
     }
 
     func configure(with hour: HourlyWeather) {
-        timeLabel.text = String(hour.time.suffix(5))
-        tempLabel.text = "\(hour.temp_c)°C"
+        if let time = hour.time {
+            timeLabel.text = String(time.suffix(5))
+        } else {
+            timeLabel.text = "--:--"
+        }
+
+        if let temp = hour.temp_c {
+            tempLabel.text = "\(temp)°C"
+        } else {
+            tempLabel.text = "--°C"
+        }
     }
 }

@@ -10,14 +10,14 @@ import UIKit
 class DailyWeatherCell: UITableViewCell {
     private let dateLabel = UILabel()
     private let highLowLabel = UILabel()
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
     }
-
+    
     required init?(coder: NSCoder) { fatalError() }
-
+    
     private func setup() {
         dateLabel.font = UIFont.systemFont(ofSize: 16)
         highLowLabel.font = UIFont.systemFont(ofSize: 16)
@@ -32,9 +32,11 @@ class DailyWeatherCell: UITableViewCell {
             highLowLabel.centerYAnchor.constraint(equalTo: dateLabel.centerYAnchor)
         ])
     }
-
+    
     func configure(with day: ForecastDay) {
-        dateLabel.text = day.date
-        highLowLabel.text = "High: \(day.day.maxtemp_c)° / Low: \(day.day.mintemp_c)°"
+        dateLabel.text = day.date ?? "—"
+        let highValue = day.day.maxtemp_c != nil ? "\(day.day.maxtemp_c!)" : "—"
+        let lowValue  = day.day.mintemp_c != nil ? "\(day.day.mintemp_c!)"  : "—"
+        highLowLabel.text = "High: \(highValue)° / Low: \(lowValue)°"
     }
 }

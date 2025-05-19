@@ -60,11 +60,12 @@ class CurrentWeatherCell: UITableViewCell {
     }
 
     func configure(with current: CurrentWeather, locationName: String, apiClient: WeatherAPIClientProtocol) {
+        guard let temp = current.temp_c, let icon = current.condition.icon else { return }
         iconImageView.image = nil
         locationLabel.text = locationName
-        tempLabel.text = "\(Int(current.temp_c))°C"
+        tempLabel.text = "\(Int(temp))°C"
         conditionLabel.text = current.condition.text
-        apiClient.fetchIcon(path: current.condition.icon) { [weak self] image in
+        apiClient.fetchIcon(path: icon) { [weak self] image in
             self?.iconImageView.image = image
         }
     }

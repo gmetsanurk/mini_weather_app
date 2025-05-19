@@ -78,7 +78,7 @@ extension WeatherViewController {
     }
     
     func showWeather(_ response: WeatherResponse) {
-        self.weatherResponse = response
+        presenter.weatherResponse = response
         tableView.reloadData()
         tableView.alpha = 0
         tableView.isHidden = false

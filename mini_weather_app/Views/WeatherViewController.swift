@@ -14,7 +14,6 @@ class WeatherViewController: UIViewController, WeatherViewProtocol {
     let errorLabel = UILabel()
     let retryButton = UIButton(type: .system)
     let tableView = UITableView()
-    var weatherResponse: WeatherResponse?
     
     init(presenter: WeatherPresenter, apiClient: WeatherAPIClientProtocol) {
         self.presenter = presenter
