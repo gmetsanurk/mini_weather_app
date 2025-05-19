@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import UIKit
 
 protocol WeatherAPIClientProtocol {
     func fetchWeather(lat: Double, lon: Double, days: Int, completion: @escaping (Result<WeatherResponse, Error>) -> Void)
+    func fetchIcon(path: String, completion: @escaping (UIImage?) -> Void)
 }
 
 class WeatherAPIClient: WeatherAPIClientProtocol {
@@ -30,12 +32,26 @@ class WeatherAPIClient: WeatherAPIClientProtocol {
             }
             do {
                 let decoder = JSONDecoder()
-                // API time strings in 'yyyy-MM-dd HH:mm' format
                 decoder.dateDecodingStrategy = .formatted(DateFormatter.apiDateFormatter)
                 let response = try decoder.decode(WeatherResponse.self, from: data)
                 completion(.success(response))
             } catch {
                 completion(.failure(error))
+            }
+        }.resume()
+    }
+
+    func fetchIcon(path: String, completion: @escaping (UIImage?) -> Void) {
+        let urlString = "https:" + path
+        guard let url = URL(string: urlString) else {
+            completion(nil); return
+        }
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard let data = data, let image = UIImage(data: data) else {
+                completion(nil); return
+            }
+            DispatchQueue.main.async {
+                completion(image)
             }
         }.resume()
     }

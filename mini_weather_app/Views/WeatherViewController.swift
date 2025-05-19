@@ -8,17 +8,17 @@
 import UIKit
 
 class WeatherViewController: UIViewController, WeatherViewProtocol {
-    private let presenter: WeatherPresenterProtocol
-    
+    private let presenter: WeatherPresenter
+    private let apiClient: WeatherAPIClientProtocol
     private let activity = UIActivityIndicatorView(style: .large)
     private let errorLabel = UILabel()
     private let retryButton = UIButton(type: .system)
     private let tableView = UITableView()
-    
     private var weatherResponse: WeatherResponse?
     
-    init(presenter: WeatherPresenterProtocol) {
+    init(presenter: WeatherPresenter, apiClient: WeatherAPIClientProtocol) {
         self.presenter = presenter
+        self.apiClient = apiClient
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -47,7 +47,9 @@ class WeatherViewController: UIViewController, WeatherViewProtocol {
         view.addSubview(errorLabel)
         
         retryButton.setTitle("Retry", for: .normal)
-        retryButton.addTarget(self, action: #selector(didTapRetry), for: .touchUpInside)
+        retryButton.addAction(UIAction { _ in
+            self.didTapRetry()
+        }, for: .primaryActionTriggered)
         retryButton.translatesAutoresizingMaskIntoConstraints = false
         retryButton.isHidden = true
         view.addSubview(retryButton)
@@ -74,7 +76,7 @@ class WeatherViewController: UIViewController, WeatherViewProtocol {
         ])
     }
     
-    @objc private func didTapRetry() {
+    private func didTapRetry() {
         errorLabel.isHidden = true
         retryButton.isHidden = true
         tableView.isHidden = true
@@ -130,26 +132,34 @@ extension WeatherViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let response = weatherResponse else { return UITableViewCell() }
+        guard let resp = weatherResponse else { return UITableViewCell() }
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "CurrentCell", for: indexPath) as! CurrentWeatherCell
-            cell.configure(with: response.current, locationName: response.location.name)
+            cell.configure(with: resp.current, locationName: resp.location.name, apiClient: apiClient)
             return cell
         case 1:
-            let todayHours = response.forecast.forecastday.first?.hour.filter {
+            let today = resp.forecast.forecastday.first?.hour.filter {
                 DateFormatter.apiDateFormatter.date(from: $0.time)! > Date()
             } ?? []
-            let allHours = todayHours + (response.forecast.forecastday[safe: 1]?.hour ?? [])
+            let allHours = today + (resp.forecast.forecastday[safe: 1]?.hour ?? [])
             let cell = tableView.dequeueReusableCell(withIdentifier: "HourlyCell", for: indexPath) as! HourlyWeatherCell
             cell.configure(with: allHours[indexPath.row])
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DailyCell", for: indexPath) as! DailyWeatherCell
-            cell.configure(with: response.forecast.forecastday[indexPath.row])
+            cell.configure(with: resp.forecast.forecastday[indexPath.row])
             return cell
         default:
             return UITableViewCell()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 1: return "Hourly forecast"
+        case 2: return "Weekly forecast"
+        default: return nil
         }
     }
 }

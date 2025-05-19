@@ -35,6 +35,6 @@ class DailyWeatherCell: UITableViewCell {
 
     func configure(with day: ForecastDay) {
         dateLabel.text = day.date
-        highLowLabel.text = "H: \(day.day.maxtemp_c)° / L: \(day.day.mintemp_c)°"
+        highLowLabel.text = "High: \(day.day.maxtemp_c)° / Low: \(day.day.mintemp_c)°"
     }
 }

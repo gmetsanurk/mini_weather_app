@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         presenter.currentLat = coord.latitude
         presenter.currentLon = coord.longitude
 
-        let rootVC = WeatherViewController(presenter: presenter)
+        let rootVC = WeatherViewController(presenter: presenter, apiClient: apiClient)
         presenter.view = rootVC
 
         window?.rootViewController = UINavigationController(rootViewController: rootVC)
