@@ -1,5 +1,5 @@
 //
-//  Untitled.swift
+//  eatherPresenter.swift
 //  mini_weather_app
 //
 //  Created by Georgy on 2025-05-16.
@@ -24,8 +24,8 @@ class WeatherPresenter: WeatherPresenterProtocol {
     private let apiClient: WeatherAPIClientProtocol
     private let locationService: LocationServiceProtocol
 
-    private var currentLat: Double = 0
-    private var currentLon: Double = 0
+    var currentLat: Double = 0
+    var currentLon: Double = 0
 
     init(apiClient: WeatherAPIClientProtocol, locationService: LocationServiceProtocol) {
         self.apiClient = apiClient
