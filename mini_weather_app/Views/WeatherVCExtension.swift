@@ -10,37 +10,53 @@ import UIKit
 extension WeatherViewController {
     
     func setupViews() {
-        // Activity Indicator
+        setupActivityIndicator()
+        setupErrorLabel()
+        setupRetryButton()
+        setupTableView()
+    }
+    
+    private func setupActivityIndicator() {
         activity.translatesAutoresizingMaskIntoConstraints = false
         activity.hidesWhenStopped = true
         view.addSubview(activity)
+        
         NSLayoutConstraint.activate([
             activity.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             activity.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
-        
-        // Error Label
+    }
+    
+    private func setupErrorLabel() {
         errorLabel.translatesAutoresizingMaskIntoConstraints = false
         errorLabel.textAlignment = .center
         errorLabel.numberOfLines = 0
         errorLabel.isHidden = true
         view.addSubview(errorLabel)
         
-        // Retry Button
+        NSLayoutConstraint.activate([
+            errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            errorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: AppGeometry.errorVerticalOffset)
+        ])
+    }
+    
+    private func setupRetryButton() {
         retryButton.setTitle("Retry", for: .normal)
-        retryButton.addAction(UIAction { [weak self] _ in self?.didTapRetry() }, for: .primaryActionTriggered)
+        retryButton.addAction(
+            UIAction { [weak self] _ in self?.didTapRetry() },
+            for: .primaryActionTriggered
+        )
         retryButton.translatesAutoresizingMaskIntoConstraints = false
         retryButton.isHidden = true
         view.addSubview(retryButton)
         
         NSLayoutConstraint.activate([
-            errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            errorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: AppGeometry.errorVerticalOffset),
             retryButton.topAnchor.constraint(equalTo: errorLabel.bottomAnchor, constant: AppGeometry.interItemSpacing),
             retryButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
-        
-        // Table View
+    }
+    
+    private func setupTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         tableView.register(CurrentWeatherCell.self, forCellReuseIdentifier: "CurrentCell")
@@ -48,6 +64,7 @@ extension WeatherViewController {
         tableView.register(DailyWeatherCell.self, forCellReuseIdentifier: "DailyCell")
         tableView.isHidden = true
         view.addSubview(tableView)
+        
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -55,7 +72,6 @@ extension WeatherViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
-    
     private func didTapRetry() {
         errorLabel.isHidden = true
         retryButton.isHidden = true
