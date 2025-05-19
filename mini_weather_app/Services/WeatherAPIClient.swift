@@ -43,13 +43,13 @@ final class WeatherAPIClient: WeatherAPIClientProtocol {
         lon: Double,
         days: Int
     ) -> URL? {
-        var comps = URLComponents(url: baseURL.appendingPathComponent("forecast.json"), resolvingAgainstBaseURL: false)
-        comps?.queryItems = [
+        var components = URLComponents(url: baseURL.appendingPathComponent("forecast.json"), resolvingAgainstBaseURL: false)
+        components?.queryItems = [
             .init(name: "key", value: apiKey),
             .init(name: "q", value: "\(lat),\(lon)"),
             .init(name: "days", value: "\(days)")
         ]
-        return comps?.url
+        return components?.url
     }
 
     func fetchWeather(

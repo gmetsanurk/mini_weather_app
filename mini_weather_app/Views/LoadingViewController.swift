@@ -6,7 +6,7 @@
 //
 import UIKit
 
-class LoadingViewController: UIViewController {
+final class LoadingViewController: UIViewController {
     private let activity = UIActivityIndicatorView(style: .large)
 
     override func viewDidLoad() {
