@@ -22,6 +22,8 @@
 		668616EE2DDB92FE00EBE194 /* WeatherVCTableViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668616ED2DDB92E900EBE194 /* WeatherVCTableViewProtocol.swift */; };
 		668616F02DDB932D00EBE194 /* WeatherVCExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668616EF2DDB932100EBE194 /* WeatherVCExtension.swift */; };
 		668616F32DDBB35B00EBE194 /* AppGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668616F22DDBB35500EBE194 /* AppGeometry.swift */; };
+		668616F52DDBB96C00EBE194 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668616F42DDBB96200EBE194 /* AppCoordinator.swift */; };
+		668616F72DDBBA9F00EBE194 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668616F62DDBBA9800EBE194 /* LoadingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,8 @@
 		668616ED2DDB92E900EBE194 /* WeatherVCTableViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherVCTableViewProtocol.swift; sourceTree = "<group>"; };
 		668616EF2DDB932100EBE194 /* WeatherVCExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherVCExtension.swift; sourceTree = "<group>"; };
 		668616F22DDBB35500EBE194 /* AppGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGeometry.swift; sourceTree = "<group>"; };
+		668616F42DDBB96200EBE194 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		668616F62DDBBA9800EBE194 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +89,7 @@
 			children = (
 				6617CF5D2D82A60500E5E3C9 /* AppDelegate.swift */,
 				668616F22DDBB35500EBE194 /* AppGeometry.swift */,
+				668616F42DDBB96200EBE194 /* AppCoordinator.swift */,
 				668616E62DDB1A8400EBE194 /* Presenters */,
 				668616E82DDB1A9D00EBE194 /* Views */,
 				668616EA2DDB1AB200EBE194 /* Models */,
@@ -119,6 +124,7 @@
 				668616D92DD75C4800EBE194 /* WeatherViewController.swift */,
 				668616EF2DDB932100EBE194 /* WeatherVCExtension.swift */,
 				668616ED2DDB92E900EBE194 /* WeatherVCTableViewProtocol.swift */,
+				668616F62DDBBA9800EBE194 /* LoadingViewController.swift */,
 				668616E52DDB1A1200EBE194 /* Cells */,
 			);
 			path = Views;
@@ -225,6 +231,7 @@
 				668616EB2DDB1AB200EBE194 /* Models.swift in Sources */,
 				668616DE2DD75E4E00EBE194 /* HourlyWeatherCell.swift in Sources */,
 				668616EE2DDB92FE00EBE194 /* WeatherVCTableViewProtocol.swift in Sources */,
+				668616F72DDBBA9F00EBE194 /* LoadingViewController.swift in Sources */,
 				668616DC2DD75E3100EBE194 /* CurrentWeatherCell.swift in Sources */,
 				6617CF652D82A60500E5E3C9 /* AppDelegate.swift in Sources */,
 				668616F32DDBB35B00EBE194 /* AppGeometry.swift in Sources */,
@@ -234,6 +241,7 @@
 				668616E22DD7635100EBE194 /* DateFormatter+Extension.swift in Sources */,
 				668616D82DD75C3200EBE194 /* WeatherPresenter.swift in Sources */,
 				668616DA2DD75C4900EBE194 /* WeatherViewController.swift in Sources */,
+				668616F52DDBB96C00EBE194 /* AppCoordinator.swift in Sources */,
 				668616F02DDB932D00EBE194 /* WeatherVCExtension.swift in Sources */,
 				668616E02DD75E5B00EBE194 /* DailyWeatherCell.swift in Sources */,
 			);

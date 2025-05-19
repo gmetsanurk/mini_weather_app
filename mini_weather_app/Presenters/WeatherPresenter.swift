@@ -45,11 +45,18 @@ class WeatherPresenter: WeatherPresenterProtocol {
     
     func viewDidLoad() {
         view?.showLoading()
-        locationService.requestLocation { [weak self] coord in
+        
+        Task { [weak self] in
             guard let self = self else { return }
-            self.currentLat = coord.latitude
-            self.currentLon = coord.longitude
-            self.fetchWeather()
+            do {
+                let coord = try await self.locationService.requestLocation()
+                self.currentLat = coord.latitude
+                self.currentLon = coord.longitude
+                
+                await MainActor.run { self.fetchWeather() }
+            } catch {
+                await MainActor.run { self.view?.showError(error.localizedDescription) }
+            }
         }
     }
     

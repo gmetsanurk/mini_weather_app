@@ -5,18 +5,22 @@
 //  Created by Georgy on 2025-05-16.
 //
 
+import UIKit
 import CoreLocation
 
 protocol LocationServiceProtocol {
-    func requestLocation(completion: @escaping (CLLocationCoordinate2D) -> Void)
+    func requestLocation() async throws -> CLLocationCoordinate2D
 }
 
 class LocationService: NSObject, CLLocationManagerDelegate, LocationServiceProtocol {
     private let manager: CLLocationManager
-    private var completion: ((CLLocationCoordinate2D) -> Void)?
+    private let moscowCoordinate = CLLocationCoordinate2D(
+        latitude:  55.7558,
+        longitude: 37.6176
+    )
     
-    private let moscowCoordinate = CLLocationCoordinate2D(latitude: 55.7558, longitude: 37.6176)
-
+    private var continuation: CheckedContinuation<CLLocationCoordinate2D, Error>?
+    
     init(manager: CLLocationManager = CLLocationManager()) {
         self.manager = manager
         super.init()
@@ -24,44 +28,52 @@ class LocationService: NSObject, CLLocationManagerDelegate, LocationServiceProto
         self.manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
     }
 
-    func requestLocation(completion: @escaping (CLLocationCoordinate2D) -> Void) {
-        self.completion = { coord in
-            DispatchQueue.main.async { completion(coord) }
-            self.completion = nil
-        }
-        switch manager.authorizationStatus {
-        case .notDetermined:
-            manager.requestWhenInUseAuthorization()
-        case .authorizedWhenInUse, .authorizedAlways:
-            manager.requestLocation()
-        default:
-            // fallback
-            self.completion?(moscowCoordinate)
+    func requestLocation() async throws -> CLLocationCoordinate2D {
+        return try await withCheckedThrowingContinuation { (cont: CheckedContinuation<CLLocationCoordinate2D, Error>) in
+            self.continuation = cont
+            
+            switch manager.authorizationStatus {
+            case .notDetermined:
+                manager.requestWhenInUseAuthorization()
+            case .authorizedWhenInUse, .authorizedAlways:
+                manager.requestLocation()
+            case .denied, .restricted:
+                cont.resume(returning: moscowCoordinate)
+                continuation = nil
+            @unknown default:
+                cont.resume(returning: moscowCoordinate)
+                continuation = nil
+            }
         }
     }
+    
+    // MARK: –– CLLocationManagerDelegate
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        guard continuation != nil else { return }
         switch status {
         case .authorizedWhenInUse, .authorizedAlways:
             manager.requestLocation()
         case .denied, .restricted:
-            completion?(moscowCoordinate)
-            completion = nil
-        default: break
+            continuation?.resume(returning: moscowCoordinate)
+            continuation = nil
+        default:
+            break
         }
     }
-
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let cont = continuation else { return }
         if let coord = locations.first?.coordinate {
-            completion?(coord)
+            cont.resume(returning: coord)
         } else {
-            completion?(moscowCoordinate)
+            cont.resume(returning: moscowCoordinate)
         }
-        completion = nil
+        continuation = nil
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        completion?(moscowCoordinate)
-        completion = nil
+        continuation?.resume(returning: moscowCoordinate)
+        continuation = nil
     }
 }
