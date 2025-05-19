@@ -1,6 +1,6 @@
 import UIKit
 
-class WeatherViewController: UIViewController {
+/*class WeatherViewController: UIViewController {
     private let cityLabel = UILabel()
     private let tempLabel = UILabel()
     private let weatherIcon = UIImageView()
@@ -97,5 +97,5 @@ class WeatherViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
     }
-}
+}*/
 

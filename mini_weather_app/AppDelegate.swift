@@ -1,22 +1,23 @@
 import UIKit
 
 @main
-final class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    
+
     func application(
-        _: UIApplication,
-        didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        setupWindow()
-        return true
-    }
-    
-    private func setupWindow() {
         window = UIWindow(frame: UIScreen.main.bounds)
-        let homeVC = WeatherViewController()
-        window?.rootViewController = homeVC
+        let locationService = LocationService()
+        let apiClient = WeatherAPIClient()
+        let presenter = WeatherPresenter(apiClient: apiClient, locationService: locationService)
+        let rootVC = WeatherViewController(presenter: presenter)
+        presenter.view = rootVC
+
+        window?.rootViewController = UINavigationController(rootViewController: rootVC)
         window?.makeKeyAndVisible()
+        return true
     }
 }
 
