@@ -23,36 +23,51 @@ class CurrentWeatherCell: UITableViewCell {
     }
     
     private func setup() {
+        configureIconImageView()
+        configureLabels()
+        addSubviews()
+        activateConstraints()
+    }
+
+    private func configureIconImageView() {
         iconImageView.contentMode = .scaleAspectFill
         iconImageView.clipsToBounds = true
         iconImageView.layer.cornerRadius = AppGeometry.iconSize.width / 2
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        locationLabel.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-        tempLabel.font = UIFont.systemFont(ofSize: 32, weight: .bold)
-        conditionLabel.font = UIFont.systemFont(ofSize: AppGeometry.fontSize)
-        locationLabel.translatesAutoresizingMaskIntoConstraints = false
-        tempLabel.translatesAutoresizingMaskIntoConstraints = false
-        conditionLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        contentView.addSubview(iconImageView)
-        contentView.addSubview(locationLabel)
-        contentView.addSubview(tempLabel)
-        contentView.addSubview(conditionLabel)
-        
+    }
+
+    private func configureLabels() {
+        locationLabel.font = .systemFont(ofSize: 18, weight: .medium)
+        tempLabel.font = .systemFont(ofSize: 32, weight: .bold)
+        conditionLabel.font = .systemFont(ofSize: AppGeometry.fontSize)
+        [locationLabel, tempLabel, conditionLabel].forEach {
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+    }
+
+    private func addSubviews() {
+        [iconImageView, locationLabel, tempLabel, conditionLabel]
+            .forEach { contentView.addSubview($0) }
+    }
+
+    private func activateConstraints() {
         NSLayoutConstraint.activate([
+            // Icon
             iconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: AppGeometry.padding),
             iconImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: AppGeometry.padding),
             iconImageView.widthAnchor.constraint(equalToConstant: AppGeometry.iconSize.width),
             iconImageView.heightAnchor.constraint(equalToConstant: AppGeometry.iconSize.height),
-            
+
+            // Location label
             locationLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: AppGeometry.padding),
             locationLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: AppGeometry.padding),
             locationLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -AppGeometry.padding),
-            
+
+            // Temp label
             tempLabel.leadingAnchor.constraint(equalTo: locationLabel.leadingAnchor),
             tempLabel.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: AppGeometry.interItemSpacing),
-            
+
+            // Condition label
             conditionLabel.leadingAnchor.constraint(equalTo: locationLabel.leadingAnchor),
             conditionLabel.topAnchor.constraint(equalTo: tempLabel.bottomAnchor, constant: AppGeometry.interItemSpacing),
             conditionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -AppGeometry.padding)

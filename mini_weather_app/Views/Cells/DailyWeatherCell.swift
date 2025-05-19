@@ -19,16 +19,28 @@ class DailyWeatherCell: UITableViewCell {
     required init?(coder: NSCoder) { fatalError() }
     
     private func setup() {
+        configureLabels()
+        addLabelSubviews()
+        activateLabelConstraints()
+    }
+
+    private func configureLabels() {
         dateLabel.font = UIFont.systemFont(ofSize: AppGeometry.fontSize)
         highLowLabel.font = UIFont.systemFont(ofSize: AppGeometry.fontSize)
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         highLowLabel.translatesAutoresizingMaskIntoConstraints = false
+    }
+
+    private func addLabelSubviews() {
         contentView.addSubview(dateLabel)
         contentView.addSubview(highLowLabel)
-        
+    }
+
+    private func activateLabelConstraints() {
         NSLayoutConstraint.activate([
             dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: AppGeometry.padding),
             dateLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+
             highLowLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -AppGeometry.padding),
             highLowLabel.centerYAnchor.constraint(equalTo: dateLabel.centerYAnchor)
         ])

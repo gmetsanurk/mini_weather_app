@@ -19,16 +19,28 @@ class HourlyWeatherCell: UITableViewCell {
     required init?(coder: NSCoder) { fatalError() }
     
     private func setup() {
+        configureLabels()
+        addLabelSubviews()
+        activateLabelConstraints()
+    }
+
+    private func configureLabels() {
         timeLabel.font = UIFont.systemFont(ofSize: AppGeometry.fontSize)
         tempLabel.font = UIFont.systemFont(ofSize: AppGeometry.fontSize)
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
         tempLabel.translatesAutoresizingMaskIntoConstraints = false
+    }
+
+    private func addLabelSubviews() {
         contentView.addSubview(timeLabel)
         contentView.addSubview(tempLabel)
-        
+    }
+
+    private func activateLabelConstraints() {
         NSLayoutConstraint.activate([
             timeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: AppGeometry.padding),
             timeLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+
             tempLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -AppGeometry.padding),
             tempLabel.centerYAnchor.constraint(equalTo: timeLabel.centerYAnchor)
         ])
