@@ -8,8 +8,15 @@
 import Foundation
 
 struct WeatherResponse: Codable {
+    let location: Location
     let current: CurrentWeather
     let forecast: Forecast
+}
+
+struct Location: Codable {
+    let name: String
+    let region: String
+    let country: String
 }
 
 struct CurrentWeather: Codable {

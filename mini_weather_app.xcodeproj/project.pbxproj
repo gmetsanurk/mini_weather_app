@@ -92,9 +92,9 @@
 		668616E52DDB1A1200EBE194 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				668616DB2DD75E2B00EBE194 /* CurrentWeatherCell.swift */,
 				668616DF2DD75E5600EBE194 /* DailyWeatherCell.swift */,
 				668616DD2DD75E4A00EBE194 /* HourlyWeatherCell.swift */,
-				668616DB2DD75E2B00EBE194 /* CurrentWeatherCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
