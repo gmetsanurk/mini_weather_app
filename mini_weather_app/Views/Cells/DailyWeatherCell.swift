@@ -19,16 +19,17 @@ class DailyWeatherCell: UITableViewCell {
     required init?(coder: NSCoder) { fatalError() }
     
     private func setup() {
-        dateLabel.font = UIFont.systemFont(ofSize: 16)
-        highLowLabel.font = UIFont.systemFont(ofSize: 16)
+        dateLabel.font = UIFont.systemFont(ofSize: AppGeometry.fontSize)
+        highLowLabel.font = UIFont.systemFont(ofSize: AppGeometry.fontSize)
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         highLowLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(dateLabel)
         contentView.addSubview(highLowLabel)
+        
         NSLayoutConstraint.activate([
-            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: AppGeometry.padding),
             dateLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            highLowLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            highLowLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -AppGeometry.padding),
             highLowLabel.centerYAnchor.constraint(equalTo: dateLabel.centerYAnchor)
         ])
     }
@@ -37,6 +38,7 @@ class DailyWeatherCell: UITableViewCell {
         dateLabel.text = day.date ?? "—"
         let highValue = day.day.maxtemp_c != nil ? "\(day.day.maxtemp_c!)" : "—"
         let lowValue  = day.day.mintemp_c != nil ? "\(day.day.mintemp_c!)"  : "—"
+        
         highLowLabel.text = "High: \(highValue)° / Low: \(lowValue)°"
     }
 }

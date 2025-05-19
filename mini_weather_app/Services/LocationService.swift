@@ -12,49 +12,56 @@ protocol LocationServiceProtocol {
 }
 
 class LocationService: NSObject, CLLocationManagerDelegate, LocationServiceProtocol {
-    private let manager = CLLocationManager()
+    private let manager: CLLocationManager
     private var completion: ((CLLocationCoordinate2D) -> Void)?
+    
+    private let moscowCoordinate = CLLocationCoordinate2D(latitude: 55.7558, longitude: 37.6176)
 
-    override init() {
+    init(manager: CLLocationManager = CLLocationManager()) {
+        self.manager = manager
         super.init()
-        manager.delegate = self
+        self.manager.delegate = self
+        self.manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
     }
 
     func requestLocation(completion: @escaping (CLLocationCoordinate2D) -> Void) {
-        self.completion = completion
-        let status = CLLocationManager.authorizationStatus()
-        switch status {
+        self.completion = { coord in
+            DispatchQueue.main.async { completion(coord) }
+            self.completion = nil
+        }
+        switch manager.authorizationStatus {
         case .notDetermined:
             manager.requestWhenInUseAuthorization()
-            // Request location; will trigger delegate methods
-            manager.requestLocation()
-        case .authorizedAlways, .authorizedWhenInUse:
+        case .authorizedWhenInUse, .authorizedAlways:
             manager.requestLocation()
         default:
-            // Fallback to Moscow
-            let moscow = CLLocationCoordinate2D(latitude: 55.7558, longitude: 37.6176)
-            completion(moscow)
+            // fallback
+            self.completion?(moscowCoordinate)
         }
     }
 
-    // MARK: - CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == .authorizedWhenInUse || status == .authorizedAlways {
+        switch status {
+        case .authorizedWhenInUse, .authorizedAlways:
             manager.requestLocation()
-        } else if status == .denied || status == .restricted {
-            let moscow = CLLocationCoordinate2D(latitude: 55.7558, longitude: 37.6176)
-            completion?(moscow)
+        case .denied, .restricted:
+            completion?(moscowCoordinate)
+            completion = nil
+        default: break
         }
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            completion?(location.coordinate)
+        if let coord = locations.first?.coordinate {
+            completion?(coord)
+        } else {
+            completion?(moscowCoordinate)
         }
+        completion = nil
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        let moscow = CLLocationCoordinate2D(latitude: 55.7558, longitude: 37.6176)
-        completion?(moscow)
+        completion?(moscowCoordinate)
+        completion = nil
     }
 }

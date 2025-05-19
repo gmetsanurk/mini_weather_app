@@ -10,6 +10,7 @@ import UIKit
 extension WeatherViewController {
     
     func setupViews() {
+        // Activity Indicator
         activity.translatesAutoresizingMaskIntoConstraints = false
         activity.hidesWhenStopped = true
         view.addSubview(activity)
@@ -18,27 +19,28 @@ extension WeatherViewController {
             activity.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
         
+        // Error Label
         errorLabel.translatesAutoresizingMaskIntoConstraints = false
         errorLabel.textAlignment = .center
         errorLabel.numberOfLines = 0
         errorLabel.isHidden = true
         view.addSubview(errorLabel)
         
+        // Retry Button
         retryButton.setTitle("Retry", for: .normal)
-        retryButton.addAction(UIAction { _ in
-            self.didTapRetry()
-        }, for: .primaryActionTriggered)
+        retryButton.addAction(UIAction { [weak self] _ in self?.didTapRetry() }, for: .primaryActionTriggered)
         retryButton.translatesAutoresizingMaskIntoConstraints = false
         retryButton.isHidden = true
         view.addSubview(retryButton)
         
         NSLayoutConstraint.activate([
             errorLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            errorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -20),
-            retryButton.topAnchor.constraint(equalTo: errorLabel.bottomAnchor, constant: 16),
+            errorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: AppGeometry.errorVerticalOffset),
+            retryButton.topAnchor.constraint(equalTo: errorLabel.bottomAnchor, constant: AppGeometry.interItemSpacing),
             retryButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
+        // Table View
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         tableView.register(CurrentWeatherCell.self, forCellReuseIdentifier: "CurrentCell")
