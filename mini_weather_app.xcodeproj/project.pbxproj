@@ -80,11 +80,10 @@
 				6617CF5D2D82A60500E5E3C9 /* AppDelegate.swift */,
 				668616D52DD75C1300EBE194 /* WeatherApiClient.swift */,
 				668616D32DD75BF600EBE194 /* LocationService.swift */,
+				668616E62DDB1A8400EBE194 /* Presenters */,
 				668616E82DDB1A9D00EBE194 /* Views */,
 				668616EA2DDB1AB200EBE194 /* Models */,
-				668616E62DDB1A8400EBE194 /* Presenters */,
-				668616E12DD7634900EBE194 /* DateFormatter+API.swift */,
-				668616E32DD7636E00EBE194 /* Array+Safe.swift */,
+				668616EC2DDB1AF900EBE194 /* Extensions */,
 				6617CF5C2D82A60500E5E3C9 /* Resources */,
 			);
 			path = mini_weather_app;
@@ -123,6 +122,15 @@
 				668616E92DDB1AB200EBE194 /* Models.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		668616EC2DDB1AF900EBE194 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				668616E12DD7634900EBE194 /* DateFormatter+API.swift */,
+				668616E32DD7636E00EBE194 /* Array+Safe.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
