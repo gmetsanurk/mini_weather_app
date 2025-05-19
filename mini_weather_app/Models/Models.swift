@@ -14,13 +14,13 @@ struct WeatherResponse: Codable {
 }
 
 struct Location: Codable {
-    let name: String
-    let region: String
-    let country: String
+    let name: String?
+    let region: String?
+    let country: String?
 }
 
 struct CurrentWeather: Codable {
-    let temp_c: Double
+    let temp_c: Double?
     let condition: Condition
 }
 
@@ -29,24 +29,24 @@ struct Forecast: Codable {
 }
 
 struct ForecastDay: Codable {
-    let date: String
+    let date: String?
     let hour: [HourlyWeather]
     let day: DayWeather
 }
 
 struct HourlyWeather: Codable {
-    let time: String
-    let temp_c: Double
+    let time: String?
+    let temp_c: Double?
     let condition: Condition
 }
 
 struct DayWeather: Codable {
-    let maxtemp_c: Double
-    let mintemp_c: Double
+    let maxtemp_c: Double?
+    let mintemp_c: Double?
     let condition: Condition
 }
 
 struct Condition: Codable {
-    let text: String
-    let icon: String
+    let text: String?
+    let icon: String?
 }

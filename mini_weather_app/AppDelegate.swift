@@ -9,39 +9,26 @@ import UIKit
 import CoreLocation
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    private let locationService = LocationService()
-    private var didSetupRoot = false
+    private lazy var coordinator: AppCoordinator = {
+        let win = UIWindow(frame: UIScreen.main.bounds)
+        self.window = win
+        return AppCoordinator(
+            window: win,
+            locationService: LocationService(),
+            apiClient: WeatherAPIClient()
+        )
+    }()
 
     func application(
-        _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+      _ application: UIApplication,
+      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
     ) -> Bool {
-        locationService.requestLocation { [weak self] coord in
-            guard let self = self else { return }
-            DispatchQueue.main.async {
-                self.setupRootView(with: coord)
-            }
+        Task { @MainActor in
+            await coordinator.start()
         }
         return true
-    }
-
-    private func setupRootView(with coord: CLLocationCoordinate2D) {
-        guard !didSetupRoot else { return }
-        didSetupRoot = true
-
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let apiClient = WeatherAPIClient()
-        let presenter = WeatherPresenter(apiClient: apiClient, locationService: locationService)
-        presenter.currentLat = coord.latitude
-        presenter.currentLon = coord.longitude
-
-        let rootVC = WeatherViewController(presenter: presenter, apiClient: apiClient)
-        presenter.view = rootVC
-
-        window?.rootViewController = UINavigationController(rootViewController: rootVC)
-        window?.makeKeyAndVisible()
     }
 }
 
